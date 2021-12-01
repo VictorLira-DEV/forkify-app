@@ -3,8 +3,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+    devtool: 'eval-source-map',
     entry: './src/ts/controller.ts',
-
     output: {
         filename: '[name].js',
         path: __dirname + '/dist',
@@ -43,6 +43,10 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.s[ac]ss$/i,
+                use: ["style-loader", "css-loader", "sass-loader"]
+            }
         ],
     },
     resolve: {

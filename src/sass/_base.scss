@@ -28,6 +28,7 @@ $bp-smallest: 31.25em; // 500px
 }
 
 html {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 62.5%;
 
