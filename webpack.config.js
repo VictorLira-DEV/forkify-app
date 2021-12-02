@@ -31,22 +31,22 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(png|svg|jpe?g|gif)$i/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            output: 'img/',
-                            publicPath: 'img/',
-                        },
-                    },
-                ],
+                test: /\.svg$/,
+                loader: 'file-loader',
+                // use:
+                // 	{
+                // 		loader: 'file-loader',
+                // 		options: {
+                // 			name: '[name].[ext]',
+                // 			output: 'img/',
+                // 			publicPath: 'img/'
+                // 		}
+                // 	},
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"]
-            }
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
         ],
     },
     resolve: {
