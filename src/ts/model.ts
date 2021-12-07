@@ -1,3 +1,6 @@
+import { API_URL } from './config';
+import { getJson } from './helper'
+
 interface IRecipe {
     id?: string;
     title?: string;
@@ -13,21 +16,16 @@ interface IRecipe {
     }[];
 }
 
-
 export const state: {recipe: IRecipe} = {
     recipe: {}
 };
 
 export const loadRecipe = async function (id: string) {
+    console.log('ok')
     try {
-        const res = await fetch(
-            `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
-        );
-        const data = await res.json();
-
-        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        // const data = await getJson(`${API_URL}/${id}`)
+        const data = await getJson(`https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886`)
         let dataTransformed = data.data.recipe;
-
         dataTransformed = {
             id: dataTransformed.id,
             title: dataTransformed.title,
@@ -39,8 +37,7 @@ export const loadRecipe = async function (id: string) {
             ingredients: dataTransformed.ingredients,
         };
         state.recipe = { ...dataTransformed };
-        console.log(state.recipe)
     } catch (err) {
-        console.log(err);
+        throw(err)
     }
 };
