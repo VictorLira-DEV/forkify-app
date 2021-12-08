@@ -1,30 +1,26 @@
 import { API_URL } from './config';
-import { getJson } from './helper'
+import * as helper from './helper';
+import { IRecipe } from './interface';
 
-interface IRecipe {
-    id?: string;
-    title?: string;
-    publisher?: string;
-    sourceUrl?: string;
-    image?: string;
-    servings?: number;
-    cookingTime?: number;
-    ingredients?: {
-        quantity?: number;
-        description?: string;
-        unit?: string;
+interface ISearch {
+    query: string;
+    results: {
+        id: string;
+        title: string;
+        publisher: string;
+        image: string;
     }[];
 }
 
-export const state: {recipe: IRecipe} = {
-    recipe: {}
+export const state = {
+    recipe: {} as IRecipe,
+    search: {} as ISearch,
 };
 
 export const loadRecipe = async function (id: string) {
-    console.log('ok')
     try {
-        // const data = await getJson(`${API_URL}/${id}`)
-        const data = await getJson(`https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886`)
+        // const data = await getJson(`${API_URL}${id}`)
+        const data = await helper.getJson(`${API_URL}5ed6604591c37cdc054bc886`);
         let dataTransformed = data.data.recipe;
         dataTransformed = {
             id: dataTransformed.id,
@@ -38,6 +34,28 @@ export const loadRecipe = async function (id: string) {
         };
         state.recipe = { ...dataTransformed };
     } catch (err) {
-        throw(err)
+        console.log(`${err} * * * haha`);
+        throw err;
     }
 };
+
+export const loadSearchResults = async function (query: string) {
+    try {
+        state.search.query = query;
+        const res = await helper.getJson(`${API_URL}?search=${query}`);
+        const data = [...res.data.recipes];
+
+        state.search.results = data.map((rec) => {
+            return {
+                id: rec.id,
+                title: rec.title,
+                publisher: rec.publisher,
+                image: rec.image_url,
+            };
+        });
+    } catch (err) {
+        console.log(`${err} * * * haha`);
+        throw err;
+    }
+};
+

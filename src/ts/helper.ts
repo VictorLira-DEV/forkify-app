@@ -1,4 +1,4 @@
-import { TIMEOUT_SEC } from "./config";
+import { TIMEOUT_SEC } from './config';
 
 const timeout = function (seconds: number) {
     return new Promise<any>(function (_, reject) {
@@ -17,9 +17,9 @@ export const getJson = async function (url: string) {
         const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
         const data = await res.json();
 
-        if (!res.ok) throw new Error(`${data.message} (${res.status}) * * * *`);
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
         return data;
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        throw err;
     }
 };

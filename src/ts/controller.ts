@@ -17,9 +17,23 @@ const controlRecipe = async function () {
         // rendering recipees
         recipeView.render(model.state.recipe);
     } catch (err) {
-        alert(err);
+        recipeView.renderError();
     }
 };
 
-// controlRecipe();
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, controlRecipe));
+const controlSearchResults = async function () {
+    try {
+        await model.loadSearchResults('pizza');
+        console.log(model.state.search.results)
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+controlSearchResults()
+
+// Publisher-Subscriber Pattern
+const init = function () {
+    recipeView.addHandlerRender(controlRecipe);
+};
+init();
