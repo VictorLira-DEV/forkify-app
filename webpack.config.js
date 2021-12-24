@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     devtool: 'eval-source-map',
-    entry: './src/ts/controller.ts',
+    entry: './src/js/controller.js',
     output: {
         filename: '[name].js',
         path: __dirname + '/dist',
@@ -15,10 +15,10 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.js$/,
                 exclude: '/node_modules/',
                 use: {
-                    loader: 'ts-loader',
+                    loader: 'babel-loader',
                 },
             },
             {
