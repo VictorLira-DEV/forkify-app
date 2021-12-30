@@ -1,6 +1,7 @@
 import * as model from './model';
 import recipeView from './views/recipeView';
 import searchView from './views/searchView';
+import resultsView from './views/resultsView';
 import '../sass/main.scss';
 // with this we make sure that most real old browser are being supported by our app
 import 'core-js/stable';
@@ -24,11 +25,13 @@ const controlRecipe = async function () {
 
 const controlSearchResult = async function () {
     try {
+        resultsView.renderSpinner();
+        console.log(resultsView);
         const query = searchView.getQuery();
         if (!query) return;
 
         await model.loadSearchResults(query);
-        console.log(model.state.search.results);
+        resultsView.render(model.state.search.results);
     } catch (err) {
         console.log(err);
     }
