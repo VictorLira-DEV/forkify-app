@@ -13,6 +13,15 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 
+    update(data) {
+        if (!data || (Array.isArray(data) && data.length === 0))
+            return this.renderError();
+        this._data = data;
+        const newMarkUp = this._generateMarkup();
+        const newDOM = document.createRange().createContextualFragment(newMarkUp);
+        const newElements = newDOM.querySelectorAll('*')
+    }
+
     _clear() {
         this._parentElement.innerHTML = '';
     }
