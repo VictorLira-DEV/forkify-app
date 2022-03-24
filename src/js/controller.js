@@ -2,6 +2,7 @@ import * as model from './model';
 import recipeView from './views/recipeView';
 import searchView from './views/searchView';
 import resultsView from './views/resultsView';
+import bookmarksView from './views/bookMarksView';
 import paginationView from './views/paginationView';
 import '../sass/main.scss';
 // with this we make sure that most real old browser are being supported by our app
@@ -14,6 +15,10 @@ const controlRecipe = async function () {
         const id = window.location.hash.slice(1);
         if (!id) return;
         recipeView.renderSpinner();
+        // 0 update results view to mark selected search result
+        resultsView.update(model.getSearchResultsPage());
+        bookmarksView.update(model.state.bookMarks)
+
         await model.loadRecipe(id);
 
         //2 renders
@@ -21,7 +26,6 @@ const controlRecipe = async function () {
         //TEST
         // controlServings();
     } catch (error) {
-        console.log(error);
         recipeView.renderError();
     }
 };
@@ -39,7 +43,7 @@ const controlSearchResult = async function () {
         //initial pagination buttons
         paginationView.render(model.state.search);
     } catch (err) {
-        console.log(err);
+ 
     }
 };
 
@@ -58,10 +62,22 @@ const controlServings = function (newServings) {
     recipeView.update(model.state.recipe);
 };
 
+const controlAddBookmark = function () {
+    //add remove bookmark
+    if (!model.state.recipe.bookmarked) model.addBookMark(model.state.recipe);
+    else model.deleteBookmark(model.state.recipe.id);
+    // update recipe view
+    recipeView.update(model.state.recipe);
+
+    //Render Book Mark
+    bookmarksView.render(model.state.bookMarks)
+};
+
 // Event Handlers in MVC: Publisher-Subscriber Pattern
 const init = function () {
     recipeView.addHandlerRender(controlRecipe);
     recipeView.addHandlerUpdateServings(controlServings);
+    recipeView.addHandlerAddBookmark(controlAddBookmark);
     searchView.addHandlerSearch(controlSearchResult);
     paginationView.addHandlerClick(controlPagination);
 };
