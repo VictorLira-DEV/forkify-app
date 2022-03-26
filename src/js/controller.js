@@ -70,7 +70,7 @@ const controlAddBookmark = function () {
     recipeView.update(model.state.recipe);
 
     //Render Book Mark
-    bookmarksView.render(model.state.bookMarks)
+    bookmarksView.render(model.state.bookMarks, true)
 };
 
 // Event Handlers in MVC: Publisher-Subscriber Pattern

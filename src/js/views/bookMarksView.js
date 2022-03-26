@@ -1,5 +1,4 @@
 import View from './View';
-import icons from '../../img/icons.svg';
 import PreviewView from './PreviewView';
 
 class BookmarksView extends View {
@@ -8,7 +7,10 @@ class BookmarksView extends View {
     _message = '';
 
     _generateMarkup() {
-        return this._data.map(bookmark =>  PreviewView.render(bookmark, false)).join();
+
+        return this._data
+            .map(bookmark => PreviewView.render(bookmark, false))
+            .join();
     }
 }
 
