@@ -4,6 +4,9 @@ import searchView from './views/searchView';
 import resultsView from './views/resultsView';
 import bookmarksView from './views/bookMarksView';
 import paginationView from './views/paginationView';
+import addRecipeView from './views/addRecipeView';
+
+
 import '../sass/main.scss';
 // with this we make sure that most real old browser are being supported by our app
 import 'core-js/stable';
@@ -18,11 +21,12 @@ const controlRecipe = async function () {
         // 0 update results view to mark selected search result
         resultsView.update(model.getSearchResultsPage());
         bookmarksView.update(model.state.bookMarks)
-
+        
         await model.loadRecipe(id);
-
+        
         //2 renders
         recipeView.render(model.state.recipe);
+
         //TEST
         // controlServings();
     } catch (error) {
@@ -73,12 +77,23 @@ const controlAddBookmark = function () {
     bookmarksView.render(model.state.bookMarks, true)
 };
 
+const controlBookmarks = function(){
+    bookmarksView.render(model.state.bookMarks)
+}
+
+const controlAddRecipe = function(newRecipe){
+    console.log(newRecipe)
+    //Upload the new recipe data
+}
+
 // Event Handlers in MVC: Publisher-Subscriber Pattern
 const init = function () {
+    bookmarksView.addHandlerRender(controlBookmarks)
     recipeView.addHandlerRender(controlRecipe);
     recipeView.addHandlerUpdateServings(controlServings);
     recipeView.addHandlerAddBookmark(controlAddBookmark);
     searchView.addHandlerSearch(controlSearchResult);
     paginationView.addHandlerClick(controlPagination);
+    addRecipeView.addHandlerUpload(controlAddRecipe)
 };
 init();
