@@ -31,7 +31,7 @@
 
 
 ## 📓 About
-This project was developed from the <a href="https://www.udemy.com/course/the-complete-javascript-course/" target="_blank"> Javascript </a> course using programming oriented object and MVC architecture,  the user can search for various cooking recipes, create their own recipes, add to favorites.
+This project was developed on the <a href="https://www.udemy.com/course/the-complete-javascript-course/" target="_blank"> Javascript </a> course using programming oriented object and MVC architecture,  the user can search for various cooking recipes, create their own recipes, add to favorites.
 
 ## :star: Features
 - [x] Search Bar
