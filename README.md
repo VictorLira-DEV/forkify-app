@@ -22,7 +22,7 @@
 
 # 👀 Important
 
-:key: take a look --> https://lotr-quiz-mocha.vercel.app/
+:key: take a look --> https://forkify-app-vert.vercel.app/
 
 <h3 align="center"> 
 	Application status: Developed ✔️
